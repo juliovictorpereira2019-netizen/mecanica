@@ -1,891 +1,239 @@
-<!DOCTYPE html>
-<html>
-<link type="text/css" rel="stylesheet" id="dark-mode-custom-link">
-<link type="text/css" rel="stylesheet" id="dark-mode-general-link">
-<style lang="en" type="text/css" id="dark-mode-custom-style"></style>
-<style lang="en" type="text/css" id="dark-mode-native-style"></style>
-
+<!doctype html>
+<html lang="pt-br">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
-	<link rel="stylesheet" href="main-footer.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tabela de Preços - Painel</title>
 
+  <!-- Bootstrap 5 (CSS) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-	<style>
-		body,
-		td,
-		th {
-			font-size: 14px;
-			font-family: tahoma;
-			color: #666;
-			cursor: default;
-			vertical-align: baseline;
-			outline: 0;
-			line-height: 1;
-			margin: 0;
-			padding: 0;
-			word-wrap: break-word;
-		}
+  <!-- Font Awesome (ícones) -->
+  <script src="https://kit.fontawesome.com/a2d9b1d7a1.js" crossorigin="anonymous"></script>
 
-		a,
-		a:link,
-		a:visited,
-		a:active,
-		a:hover {
-			font-family: tahoma;
-			font-size: 14px;
-			color: #666;
-			text-decoration: none;
-		}
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-		div,
-		span,
-		applet,
-		object,
-		iframe,
-		p,
-		blockquote,
-		pre,
-		a,
-		abbr,
-		acronym,
-		address,
-		big,
-		cite,
-		code,
-		del,
-		dfn,
-		em,
-		font,
-		img,
-		ins,
-		kbd,
-		q,
-		s,
-		samp,
-		small,
-		strike,
-		strong,
-		sub,
-		sup,
-		tt,
-		var,
-		b,
-		u,
-		i,
-		center,
-		dl,
-		dt,
-		dd,
-		ol,
-		ul,
-		li,
-		fieldset,
-		form,
-		label,
-		legend,
-		table,
-		caption,
-		tbody,
-		tfoot,
-		thead,
-		tr {
-			border: 0;
-			outline: 0;
-			font-size: 100%;
-			vertical-align: baseline;
-			background: transparent;
-			margin: 0;
-			padding: 0;
-		}
+  <style>
+    :root{--bg:#f7f9fb;--top:#2b2f33}
+    body{font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial; background:var(--bg); color:#222}
+    .topbar{background:var(--top); color:#fff; padding:12px 0}
+    .logo{font-weight:700; letter-spacing:0.6px}
+    .page-title{padding:48px 0 24px; text-align:center}
+    .tabs{display:flex; gap:12px; padding:18px; background:#fff; border-radius:12px; align-items:center; flex-wrap:wrap}
+    .tab{padding:10px 18px; border-radius:10px; cursor:pointer; border:1px solid rgba(0,0,0,0.06); display:inline-flex; align-items:center; gap:8px; font-weight:600}
+    .tab.active{background:linear-gradient(90deg,#6a5cff,#a06bff); color:#fff; border:none; box-shadow:0 6px 18px rgba(106,92,255,0.15)}
+    .panel-row{display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin-top:18px}
+    @media(max-width:900px){ .panel-row{grid-template-columns:1fr} }
 
-		:focus {
-			outline: 0;
-		}
-
-		img {
-			border: none;
-		}
-
-		::-webkit-scrollbar {
-			width: 0;
-		}
-
-		::selection {
-			background: #FFB90F;
-		}
-
-		::-moz-selection {
-			background: #0fb3ff;
-		}
-
-		#actionmenu {
-			top: 50%;
-			left: 50%;
-			width: 1200px;
-			height: 700px;
-			display: none;
-			overflow: auto;
-			position: fixed;
-			border-top: 12px solid #111;
-			border-left: 12px solid #111;
-			border-right: 12px solid #111;
-			border-bottom: 40px solid #111;
-			transform: translate(-50%, -50%);
-			background: #FFB90F;
-		}
-
-		buttom {
-			top: 50%;
-			left: 50%;
-			width: 40px;
-			height: 14px;
-			display: none;
-			position: fixed;
-			margin-top: 355px;
-			background: #ffffff;
-			transform: translate(-50%, -50%);
-		}
-
-		buttom:hover {
-			background: #fff;
-		}
-
-		#header {
-			float: left;
-			width: 100%;
-			height: 70px;
-			background: #5f4230;
-		}
-
-		#header img {
-			width: 60px;
-			height: auto;
-			float: left;
-			padding: 7px;
-		}
-
-		#header h1 {
-			float: left;
-			margin: 20px 20px;
-			color: #fff;
-		}
-
-		nav {
-			width: 15%;
-			height: 100%;
-			float: left;
-		}
-
-		.menu {
-			width: 100%;
-			height: 186px;
-			float: left;
-			/*background: rgba(118,194,169,0.1);*/
-		}
-
-		.sub-menu {
-			width: 100%;
-			height: 100%;
-			float: left;
-			border-right: 1px solid #000;
-			/*background: rgba(118,194,169,0.1);*/
-		}
-
-		.menu a {
-			color: #a2a0a0;
-			padding: 25px 10px;
-			font-weight: 700;
-			float: left;
-			width: 89%;
-			border-right: solid 1px #000;
-		}
-
-		.menu a:hover,
-		.menu a:focus {
-			/*background: rgba(118,194,169,1);*/
-			color: #5f4230;
-			border-top: solid 1px #000;
-			border-bottom: solid 1px #000;
-			border-right: 0;
-			width: 161px;
-		}
-
-		.title {
-			width: 1125px;
-			float: left;
-			font-size: 20px;
-			font-weight: 700;
-			padding: 5px 0 10px 15px;
-			border-bottom: 1px dashed #999;
-		}
-
-		.stitle {
-			width: 1110px;
-			padding: 15px 15px 30px;
-			float: left;
-			font-size: 14px;
-			line-height: 25px;
-		}
-
-		.stitle2 {
-			width: 1110px;
-			padding: 15px 15px 0;
-			float: left;
-			font-size: 14px;
-			line-height: 25px;
-		}
-
-		s {
-			color: #45fffc;
-			text-decoration: none;
-		}
-
-		.dtitle2 {
-			width: 355px;
-			padding: 15px 0 30px 15px;
-			float: left;
-			font-size: 14px;
-			line-height: 25px;
-		}
-
-		.dtitle3 {
-			width: 355px;
-			padding: 15px 0 0 15px;
-			float: left;
-			font-size: 14px;
-			line-height: 25px;
-		}
-
-		#opacity {
-			background: rgba(0, 0, 0, 0.05);
-			padding: 15px;
-			width: 1170px;
-			float: left;
-		}
-
-		#opacity2 {
-			padding: 15px;
-			width: 1170px;
-			float: left;
-		}
-
-		#opacity:hover,
-		#opacity2:hover {
-			background: rgba(169, 73, 135, 0.1);
-		}
-
-		.title-one {
-			width: 310px;
-			float: left;
-			font-size: 20px;
-			font-weight: 700;
-			padding: 5px 0 10px 15px;
-			border-bottom: 1px dashed #999;
-			margin: 0 0 15px;
-		}
-
-		.title-two {
-			width: 150px;
-			float: left;
-			font-size: 20px;
-			font-weight: 700;
-			text-align: center;
-			padding: 5px 0 10px 0;
-			border-bottom: 1px dashed #999;
-			margin: 0 0 15px;
-		}
-
-		.title-tree {
-			width: 150px;
-			float: left;
-			font-size: 20px;
-			font-weight: 700;
-			text-align: center;
-			padding: 5px 0 10px 0;
-			border-bottom: 1px dashed #999;
-			margin: 0 0 15px;
-		}
-
-		.title-four {
-			width: 200px;
-			float: left;
-			font-size: 20px;
-			font-weight: 700;
-			padding: 5px 0 10px 15px;
-			border-bottom: 1px dashed #999;
-			margin: 0 0 15px;
-		}
-
-		.parts-one {
-			font-weight: 700;
-			width: 310px;
-			float: left;
-		}
-
-		.parts-two {
-			width: 150px;
-			float: left;
-			text-align: center;
-		}
-
-		.parts-tree {
-			width: 150px;
-			float: left;
-			text-align: center;
-		}
-
-		.parts-four {
-			width: 545px;
-			float: left;
-			padding: 0 0 0 15px;
-		}
-
-		.quadro {
-			position: relative;
-			float: left;
-			width: 20%;
-		}
-
-		.quadro button {
-			border: 0;
-			background-color: #000000;
-			color: #fff;
-			padding: 7px 30px;
-			margin-bottom: 15px;
-			border-bottom: 3px rgb(51, 204, 255) solid;
-		}
-
-		.right {
-			text-align: right;
-		}
-
-		.left {
-			text-align: left;
-		}
-
-		.center {
-			text-align: center;
-			display: flex;
-			align-items: center;
-			font-weight: bold;
-			font-size: 18px;
-
-			justify-content: center;
-		}
-
-		h3 {
-			font-size: 18px;
-		}
-
-		h4 {
-			font-size: 15px;
-		}
-
-		label {
-			font-size: 12px;
-		}
-	</style>
-	<style>
-		body{
-				background: purple;
-				
-	</style>
-
-	<title>Calculadora Mecanica - Paraisópolis</title>
-	<link rel="icon" type="image/x-icon" href="https://imgur.com/KMQ0jEv.png">
-    <link rel="stylesheet" href="styles.css">
+    .card-gradient{border-radius:14px; overflow:hidden; box-shadow:0 6px 20px rgba(30,40,50,0.06); background:#fff}
+    .card-header-gradient{padding:28px; color:#fff; text-align:center}
+    .card-header-gradient .fa{font-size:28px; margin-bottom:8px}
+    .purple{background:linear-gradient(135deg,#7b68ee,#8a6bff)}
+    .green{background:linear-gradient(135deg,#3ad29f,#2ec7a7)}
+    .bg-white{background:#fff}
+    table th, table td{vertical-align:middle; padding:14px 12px}
+    .price-parceria{color:#1f8a3d; font-weight:700}
+    .price-sem{color:#d13b3b; font-weight:700}
+    footer{margin-top:32px; padding:28px 0; color:#6b7280}
+    /* small niceties */
+    .container-max{max-width:1100px}
+    .nav-links a{color:#fff; text-decoration:none; margin-left:18px}
+  </style>
 </head>
-
-	
 <body>
-    <div>
-      <input type="checkbox" class="checkbox" id="chk" />
-      <label class="label" for="chk">
-        <i class="fas fa-moon"></i>
-        <i class="fas fa-sun"></i>
-        <div class="ball"></div>
-      </label>
+
+  <header class="topbar">
+    <div class="container container-max d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-3">
+        <div style="width:40px;height:40px;background:#fff;border-radius:8px"></div>
+        <div class="logo">REJUNADA</div>
+      </div>
+      <nav class="d-none d-md-flex align-items-center nav-links">
+        <a href="#">Início</a>
+        <a href="#">Regras</a>
+        <a href="#">Preços</a>
+        <a href="#">Punições</a>
+        <a href="#">Termos de Uso</a>
+      </nav>
     </div>
+  </header>
 
-    <script src="script.js"></script>
-    <script src="https://kit.fontawesome.com/998c60ef77.js" crossorigin="anonymous"></script>
+  <main class="container container-max">
+    <section class="page-title">
+      <h1 class="h2">Tabela de Preços</h1>
+      <p class="text-muted">Confira nossos preços e serviços disponíveis</p>
+    </section>
 
+    <section>
+      <div class="tabs" id="tabs">
+        <div class="tab active" data-cat="Ilegal"><i class="fa fa-skull"></i> Ilegal</div>
+        <div class="tab" data-cat="Mecânica"><i class="fa fa-wrench"></i> Mecânica</div>
+        <div class="tab" data-cat="Hospital"><i class="fa fa-heartbeat"></i> Hospital</div>
+        <div class="tab" data-cat="OAB"><i class="fa fa-balance-scale"></i> OAB</div>
+        <div class="tab" data-cat="Polícia"><i class="fa fa-shield-alt"></i> Polícia</div>
+      </div>
+    </section>
 
-<body>
+    <!-- Conteúdo das categorias (estático) -->
+    <section id="precos" style="margin-top:18px;">
+      <!-- Ilegal (padrão visível) -->
+      <div class="category-content" data-cat="Ilegal">
+        <div class="panel-row">
+          <!-- Cartão 1 -->
+          <div class="card-gradient">
+            <div class="card-header-gradient purple">
+              <i class="fa fa-gun"></i>
+              <h3 style="margin:0; margin-top:8px; font-size:1.15rem">Armas</h3>
+            </div>
+            <div class="bg-white p-3">
+              <div class="table-responsive">
+                <table class="table table-borderless mb-0">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th class="text-end">Com Parceria</th>
+                      <th class="text-end">Sem Parceria</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>G36</td>
+                      <td class="text-end price-parceria">R$ 670.000,00</td>
+                      <td class="text-end price-sem">R$ 690.000,00</td>
+                    </tr>
+                    <tr>
+                      <td>AK-MK2</td>
+                      <td class="text-end price-parceria">R$ 580.000,00</td>
+                      <td class="text-end price-sem">R$ 600.000,00</td>
+                    </tr>
+                    <tr>
+                      <td>HK-416</td>
+                      <td class="text-end price-parceria">R$ 410.000,00</td>
+                      <td class="text-end price-sem">R$ 430.000,00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
-	<div class="imglg">
-        <center>
-		<img src="https://imgur.com/MZHdNOC.png" class="imglogo">
-		</center>
-	</div>
-	
-	<div id="1" class="fc quadro form-control">
+          <!-- Cartão 2 -->
+          <div class="card-gradient">
+            <div class="card-header-gradient green">
+              <i class="fa fa-hand-holding-dollar"></i>
+              <h3 style="margin:0; margin-top:8px; font-size:1.15rem">Lavagem</h3>
+            </div>
+            <div class="bg-white p-3">
+              <div class="table-responsive">
+                <table class="table table-borderless mb-0">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th class="text-end">Com Parceria</th>
+                      <th class="text-end">Sem Parceria</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>COLETE</td>
+                      <td class="text-end price-parceria">R$ 100.000,00</td>
+                      <td class="text-end price-sem">R$ 120.000,00</td>
+                    </tr>
+                    <tr>
+                      <td>C4</td>
+                      <td class="text-end price-parceria">R$ 15.000,00</td>
+                      <td class="text-end price-sem">R$ 20.000,00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-		<h3>
-			<font color="#022d42">TUNAGEM</font>
-		</h3>
+      <!-- Mecânica (oculto por padrão) -->
+      <div class="category-content" data-cat="Mecânica" style="display:none">
+        <div class="panel-row">
+          <div class="card-gradient">
+            <div class="card-header-gradient purple">
+              <i class="fa fa-wrench"></i>
+              <h3 style="margin:0; margin-top:8px; font-size:1.15rem">Oficina</h3>
+            </div>
+            <div class="bg-white p-3">
+              <table class="table table-borderless mb-0">
+                <thead>
+                  <tr><th>Item</th><th class="text-end">Com Parceria</th><th class="text-end">Sem Parceria</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Troca de óleo</td><td class="text-end price-parceria">R$ 120,00</td><td class="text-end price-sem">R$ 150,00</td></tr>
+                  <tr><td>Revisão</td><td class="text-end price-parceria">R$ 400,00</td><td class="text-end price-sem">R$ 500,00</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
 
+          <div class="card-gradient">
+            <div class="card-header-gradient green">
+              <i class="fa fa-car"></i>
+              <h3 style="margin:0; margin-top:8px; font-size:1.15rem">Pneus</h3>
+            </div>
+            <div class="bg-white p-3">
+              <table class="table table-borderless mb-0">
+                <thead>
+                  <tr><th>Item</th><th class="text-end">Com Parceria</th><th class="text-end">Sem Parceria</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Balanceamento</td><td class="text-end price-parceria">R$ 60,00</td><td class="text-end price-sem">R$ 80,00</td></tr>
+                  <tr><td>Alinhamento</td><td class="text-end price-parceria">R$ 100,00</td><td class="text-end price-sem">R$ 130,00</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
 
-		<div class="col col-md-12">
-			<input id="Tunagem Full /S Desconto" type="checkbox" class="form-check-input" name="tunagem" value="395000"
-				onclick="calcular()">
-			<label class="form-check-label" title="MOTOR/FREIO/TRANSMISSÃO/SUSPENSÃO/TURBO"
-				for="Tunagem Full /S Desconto">Tunagem Full /S Desconto</label>
-		</div>
-		<div class="col col-md-12">
-			<input id="Tunagem Full /C Desconto" title="MOTOR/FREIO/TRANSMISSÃO/SUSPENSÃO/TURBO" type="checkbox"
-				class="form-check-input" name="tunagem" value="375000" onclick="calcular()">
-			<label class="form-check-label" for="Tunagem Full /C Desconto">Tunagem Full /C Desconto</label>
-		</div>
-		<div class="col col-md-12">
-			<input id="Tunagem Full (MOTO)" type="checkbox" class="form-check-input" name="tunagem" value="330000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Tunagem Full (MOTO)">Tunagem Full (MOTO)</label>
-		</div>
-		<div class="col col-md-12">
-			<input id="Motor" type="checkbox" class="form-check-input" name="tunagem" value="100000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Motor">Motor</label>
-		</div>
-		<div class="col col-md-12">
-			<input id="Freio" type="checkbox" class="form-check-input" name="tunagem" value="60000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Freio">Freio</label>
-		</div>
+      <!-- Outras categorias vazias (exemplo) -->
+      <div class="category-content" data-cat="Hospital" style="display:none">
+        <div class="card p-4">Sem serviços cadastrados para <strong>Hospital</strong>.</div>
+      </div>
 
-		<div class="col col-md-12">
-			<input id="Transmissão" type="checkbox" class="form-check-input" name="tunagem" value="90000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Transmissão">Transmissão</label>
-		</div>
-		<div class="col col-md-12">
-			<input id="Suspensão" type="checkbox" class="form-check-input" name="tunagem" value="65000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Suspensão">Suspensão</label>
-		</div>
-		<div class="col col-md-12">
-			<input id="Turbo" type="checkbox" class="form-check-input" name="tunagem" value="80000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Turbo">Turbo</label>
-		</div>
-		<div class="col col-md-12">
-			<input id="Bloco De Motor" type="checkbox" class="form-check-input" name="tunagem" value="55000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Bloco De Motor">Bloco De Motor</label>
-		</div>
-		<div class="col col-md-12">
-			<input id="Hidráulica" type="checkbox" class="form-check-input" name="tunagem" value="55000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Hidráulica"> Hidráulica</label>
-		</div>
+      <div class="category-content" data-cat="OAB" style="display:none">
+        <div class="card p-4">Sem serviços cadastrados para <strong>OAB</strong>.</div>
+      </div>
 
-	</div>
+      <div class="category-content" data-cat="Polícia" style="display:none">
+        <div class="card p-4">Sem serviços cadastrados para <strong>Polícia</strong>.</div>
+      </div>
+    </section>
 
+  </main>
 
-	<div id="2" class="quadro form-control">
-		
-		<h3>
-			<font color="#022d42">ESTÉTICA</font>
-		</h3>
-		<div class="col col-md-12">
-			<input id="Vidro Fume" type="checkbox" class="form-check-input" name="tunagem" value="45000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Vidro Fume">Vidro Fume</label>
-		</div>
+  <footer class="text-center">
+    © <span id="year"></span> Rejunada - Todos os direitos reservados
+  </footer>
 
-		<div class="col col-md-12">
-			<input id="Saias" type="checkbox" class="form-check-input" name="tunagem" value="25000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Saias">Saias</label>
-		</div>
+  <!-- Scripts -->
+  <script>
+    // ano no footer
+    document.getElementById('year').textContent = new Date().getFullYear();
 
+    // abas
+    document.querySelectorAll('.tab').forEach(function(tab){
+      tab.addEventListener('click', function(){
+        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+        tab.classList.add('active');
+        const cat = tab.getAttribute('data-cat');
+        document.querySelectorAll('.category-content').forEach(cc=>{
+          cc.style.display = cc.getAttribute('data-cat') === cat ? 'block' : 'none';
+        });
+        // scroll suave para topo dos preços (opcional)
+        // document.getElementById('precos').scrollIntoView({behavior:'smooth'});
+      });
+    });
+  </script>
 
-		<div class="col col-md-12">
-			<input id="Aerofólio" type="checkbox" class="form-check-input" name="tunagem" value="25000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Aerofólio">Aerofólio</label>
-		</div>
-
-		<div class="col col-md-12">
-			<input id="Para-choque dianteiro " type="checkbox" class="form-check-input" name="tunagem" value="25000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Para-choque dianteiro">Para-choque dianteiro</label>
-		</div>
-
-
-		<div class="col col-md-12">
-			<input id="Para-choque traseiro " type="checkbox" class="form-check-input" name="tunagem" value="25000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Para-choque traseiro">Para-choque traseiro</label>
-		</div>
-
-		<div class="col col-md-12">
-			<input id="Escapamento " type="checkbox" class="form-check-input" name="tunagem" value="20000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Escapamento">Escapamento</label>
-		</div>
-
-		<div class="col col-md-12">
-			<input id="Teto " type="checkbox" class="form-check-input" name="tunagem" value="70000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Teto">Teto</label>
-		</div>
-
-		<div class="col col-md-12">
-			<input id="Buzina " type="checkbox" class="form-check-input" name="tunagem" value="10000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Buzina">Buzina</label>
-		</div>
-
-		<div class="col col-md-12">
-			<input id="Neon " type="checkbox" class="form-check-input" name="tunagem" value="25000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Neon">Neon</label>
-		</div>
-
-		<div class="col col-md-12">
-			<input id="Xenon " type="checkbox" class="form-check-input" name="tunagem" value="25000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Xenon">Xenon</label>
-		</div>
-
-		<div class="col col-md-12">
-			<input id="Fumaça pneu" type="checkbox" class="form-check-input" name="tunagem" value="5000"
-				onclick="calcular()">
-			<label class="form-check-label" for="fumaça pneu">Fumaça pneu</label>
-		</div>		
-		<div class="col col-md-12">
-			<input id="Dial" type="checkbox" class="form-check-input" name="tunagem" value="30000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Dial">Dial</label>
-		</div>
-		
-		<div class="col col-md-12">
-			<input id="Tanque" type="checkbox" class="form-check-input" name="tunagem" value="35000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Tanque">Tanque</label>
-		</div>
-		
-		<div class="col col-md-12">
-			<input id="Placas" type="checkbox" class="form-check-input" name="tunagem" value="10000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Placas">Placas</label>
-		</div>
-
-	</div>
-		<div id="3" class="quadro form-control">
-		<h3>
-			<font color="#022d42">ESTÉTICA 2</font>
-		</h3>
-		<div class="col col-md-12">
-			<input id="Interior Enfeite Painel" type="checkbox" class="form-check-input" name="tunagem" value="70000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Interior Enfeite Painel">Interior Enfeite Painel</label>
-		</div>
-
-		<div class="col col-md-12">
-			<input id="Interior Banco" type="checkbox" class="form-check-input" name="tunagem" value="25000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Interior Banco">Interior Banco</label>
-		</div>
-
-
-		<div class="col col-md-12">
-			<input id="Som Porta-Malas" type="checkbox" class="form-check-input" name="tunagem" value="20000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Som Porta-Malas">Som Porta-Malas</label>
-		</div>
-
-		<div class="col col-md-12">
-			<input id="Som Das Portas" type="checkbox" class="form-check-input" name="tunagem" value="25000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Som Das Portas">Som Das Portas</label>
-		</div>
-		<div class="col col-md-12">
-			<input id="Interior Painel" type="checkbox" class="form-check-input" name="tunagem" value="15000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Interior Painel">Interior Painel</label>
-		</div>
-
-		<div class="col col-md-12">
-			<input id="Interior Ponteiro" type="checkbox" class="form-check-input" name="tunagem" value="15000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Interior Ponteiro">Interior Ponteiro</label>
-		</div>
-		
-				<div class="col col-md-12">
-			<input id="Gaiola " type="checkbox" class="form-check-input" name="tunagem" value="20000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Gaiola">Gaiola</label>
-		</div>
-		
-		<div class="col col-md-12">
-			<input id="Shift Leavers " type="checkbox" class="form-check-input" name="tunagem" value="30000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Shift Leavers">Shift Leavers</label>
-		</div>
-
-		<div class="col col-md-12">
-			<input id="Grelha " type="checkbox" class="form-check-input" name="tunagem" value="25000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Grelha">Grelha</label>
-		</div>
-
-
-		<div class="col col-md-12">
-			<input id="capô " type="checkbox" class="form-check-input" name="tunagem" value="25000"
-				onclick="calcular()">
-			<label class="form-check-label" for="capô">Capô</label>
-		</div>
-
-		<div class="col col-md-12">
-			<input id="Para-Lama " type="checkbox" class="form-check-input" name="tunagem" value="25000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Para-Lama">Para-Lama</label>
-		</div>
-		
-		<div class="col col-md-12">
-			<input id="Aerials " type="checkbox" class="form-check-input" name="tunagem" value="25000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Aerials">Aerials</label>
-		</div>
-		<div class="col col-md-12">
-			<input id="Santo Antonio " type="checkbox" class="form-check-input" name="tunagem" value="15000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Santo Antonio">Santo Antonio</label>
-		</div>
-		
-		<div class="col col-md-12">
-			<input id="Rodas" type="checkbox" class="form-check-input" name="tunagem" value="60000" onclick="calcular()">
-			<label class="form-check-label" for="Rodas">Rodas</label>
-		</div>
-
-
-	</div>
-
-	
-
-	<div id="4" class="quadro form-control">
-		<h3>
-			<font color="#022d42">PINTURA</font>
-		</h3>
-
-		<div class="col col-md-12">
-			<input id="Cor Primaria" type="checkbox" class="form-check-input" name="tunagem" value="30000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Cor Primaria">Cor Primaria</label>
-		</div>
-		<div class="col col-md-12">
-			<input id="Cor Secundaria" type="checkbox" class="form-check-input" name="tunagem" value="30000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Cor Secundaria">Cor Secundaria</label>
-		</div>
-
-		<div class="col col-md-12">
-			<input id="Decal" type="checkbox" class="form-check-input" name="tunagem" value="50000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Decal">Decal</label>
-		</div>
-		
-		<div class="col col-md-12">
-			<input id="Pintura" type="checkbox" class="form-check-input" name="tunagem" value="80000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Perolado">Perolado</label>
-		</div>	
-		
-		<div class="col col-md-12">
-			<input id="Pintura" type="checkbox" class="form-check-input" name="tunagem" value="30000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Pintura">Cromado/Fosco/Metal/Metalico</label>
-		</div>
-		
-		<div class="col col-md-12">
-			<input id="Pintura" type="checkbox" class="form-check-input" name="tunagem" value="40000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Pintura">Cor Primaria Heli</label>
-		</div>
-		<div class="col col-md-12">
-			<input id="Pintura" type="checkbox" class="form-check-input" name="tunagem" value="40000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Pintura">Cor Secundaria Heli</label>
-		</div>
-		<div class="col col-md-12">
-			<input id="Pintura" type="checkbox" class="form-check-input" name="tunagem" value="90000"
-				onclick="calcular()">
-			<label class="form-check-label" for="Pintura">Cor Perolado Heli</label>
-		</div>		
-		
-	</div>
-	<div id="4" class="quadro form-control">
-		<h3>
-			<font color="#000000"> 🧮 CALCULADORA</font>
-		</h3>
-		<h4>🛒 VALOR TOTAL: </h4> <input type="text" id="valor" name="valor" class="form-control" readonly="true" size="5"
-			style="margin-right:15px">
-		<button class="btn btn-danger" onclick="limpar()"><i class="bi bi-trash"></i> Limpar</button>
-
-		<h3>TUNAGENS (PROCEDIMENTOS SELECIONADOS):</h3>
-		<textarea rows="10" cols="50" style="resize: none;" readonly="true" maxlength="500" id="copy-text"
-			class="TextoTunagens form-control"></textarea>
-		<button class="btn btn-success" id="copy"> <i class="bi bi-clipboard"></i> Copiar</button>
-
-		<div class="alert alert-success" id="copiado" style="display: none;" role="alert">
-			Copiado com sucesso
-		</div>
-	</div>
-	
-	<footer class="main-footer">
-	<h3>Desenvolvido por: JOAO BRITTO</h3>
-    </footer>
-	
-	<script
-		type="text/javascript">(function () { window['__CF$cv$params'] = { r: '6d4ede693a774cf7', m: 'c1hW1Rh0H4tuZl0wsr8lc_PxHochVPe94cU5za3H6pc-1643421646-0-AZgReWNppiCIufGN9b0SQAKCqRsLtHcwRgDjgAZ+Ebwly7w0zsT9G6XS1O/UzoI0KiHefNZG3S1S37LGPme9exr6Q+bETOtZoXvE80b2jTfbfvhbNPPCZOseNmfBmgNt6A/HEo8div1AtL5xdFuLfRozIq3iNLhezke9DJu8FQdEnFcZ+SAUTYcHVynGr69bHeJn9/0I1C6Z2kVFP5+t1xjmrXaI1cyd880XCyhvg3kG', s: [0xa3d3168605, 0xba02de72f3], } })();</script>
-	<script
-		type="text/javascript">(function () { window['__CF$cv$params'] = { r: '6d55320baf256030', m: 'ZIEu.pp.iZbUyq5KJvDLfjpPqMeOMxiNGM_gE_5Duyk-1643487986-0-AcUKQeDM0xlzizuzSCE1OWs4UCC/gTki/Wf/ptjXki9iQ5VGlYhrXoxDtlJyTdabd/omn/0PoOs+p2TFELZ2mXXA6xQBQ2b+78uInsszFfSZ930uS3lQhVc0pV+mm90Hi0ieWJJmSuym9EtYDi4CGxRFI1YKe+wVHyalMeXttvlzsYErYN8azcWTRNNeh5t9RbTkmCwQHWLPNxXvCr0wo0DuT9CtjXmfznyCLMi9IUpe', s: [0x6efed7905d, 0x60ab50310e], } })();</script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-	<script type="text/javascript">
-
-		$("#1 :checkbox").change(function () {
-			let textAreaVal = $(".TextoTunagens").val();
-			if ($(this).prop("checked") == true) {
-				if (!textAreaVal.includes($(this).attr("id"))) {
-					textAreaVal += $(this).attr("id") + "\n";
-				}
-			}
-			else {
-				if (textAreaVal.includes($(this).attr("id"))) {
-					textAreaVal = textAreaVal.replace($(this).attr("id") + "\n", "");
-				}
-			}
-
-
-			$(".TextoTunagens").val(textAreaVal);
-		});
-		$("#2 :checkbox").change(function () {
-			let textAreaVal = $(".TextoTunagens").val();
-			if ($(this).prop("checked") == true) {
-				if (!textAreaVal.includes($(this).attr("id"))) {
-					textAreaVal += $(this).attr("id") + "\n";
-				}
-			}
-			else {
-				if (textAreaVal.includes($(this).attr("id"))) {
-					textAreaVal = textAreaVal.replace($(this).attr("id") + "\n", "");
-				}
-			}
-					
-
-			$(".TextoTunagens").val(textAreaVal);
-		});
-		$("#3 :checkbox").change(function () {
-			let textAreaVal = $(".TextoTunagens").val();
-			if ($(this).prop("checked") == true) {
-				if (!textAreaVal.includes($(this).attr("id"))) {
-					textAreaVal += $(this).attr("id") + "\n";
-				}
-			}
-			else {
-				if (textAreaVal.includes($(this).attr("id"))) {
-					textAreaVal = textAreaVal.replace($(this).attr("id") + "\n", "");
-				}
-			}
-
-
-			$(".TextoTunagens").val(textAreaVal);
-		});
-				$("#4 :checkbox").change(function () {
-			let textAreaVal = $(".TextoTunagens").val();
-			if ($(this).prop("checked") == true) {
-				if (!textAreaVal.includes($(this).attr("id"))) {
-					textAreaVal += $(this).attr("id") + "\n";
-				}
-			}
-			else {
-				if (textAreaVal.includes($(this).attr("id"))) {
-					textAreaVal = textAreaVal.replace($(this).attr("id") + "\n", "");
-				}
-			}
-
-
-			$(".TextoTunagens").val(textAreaVal);
-		});
-		function limpar() {
-			var tunagens = document.getElementsByName('tunagem');
-			for (var i = 0; i < tunagens.length; i++) {
-				tunagens[i].checked = false;
-			}
-			$("#copiado")[0].style.display = 'none'
-
-			var valor = document.getElementById("valor");
-			valor.value = 0;
-			document.getElementById("copy-text").value = "";
-
-		}
-
-		function tirarBloco() {
-			$("#copiado")[0].style.display = 'none';
-
-		}
-		document.getElementById('copy').addEventListener('click', function () {
-
-			var text = document.getElementById('copy-text');
-			text.select();
-			document.execCommand('copy');
-			$("#copiado")[0].style.display = 'block'
-			const timeOut = setTimeout(tirarBloco, 3000);
-		})
-		function calcular() {
-			var Valor = 0;
-			var tunagens = document.getElementsByName('tunagem');
-			for (var i = 0; i < tunagens.length; i++) {
-				if (tunagens[i].checked) {
-					var valores_tunganes = tunagens[i].value.split("|");
-					Valor += parseInt(valores_tunganes[0]);
-
-				}
-				var valor_txt = document.getElementById("valor");
-				valor_txt.value = "R$" + Valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });;
-			}
-		}
-	</script>
-
-	<script>
-		const HighElements = document.getElementsByTagName('js-item')
-		for(let i = 0; i < HighElements.length; i++)
-		{
-			let legend = HighElements[i].innerHTML
-			HighElements[i].innerHTML = `<div class="box-content"><div class="box-square"></div><b class="box-legend">${legend}</b></div>`;
-
-			if(!HighElements[i].hasAttribute('checked')) HighElements[i].setAttribute('checked', 'false');
-			if(!HighElements[i].hasAttribute('value')) HighElements[i].setAttribute('value', '0');
-
-			let boxContent = HighElements[i].querySelector('.box-content')
-			boxContent.setAttribute('onclick', `itemCheck(${i})`);
-			boxContent.style.display = 'flex';
-			boxContent.style.padding = '2px';
-			boxContent.style.margin = '2px';
-			
-			let boxSquare = HighElements[i].querySelector('.box-square')
-			boxSquare.style.width = '10px';
-			boxSquare.style.height = '10px';
-			boxSquare.style.border = '2px solid black';
-			if(HighElements[i].getAttribute('checked') == 'true') {
-				boxSquare.style.backgroundColor = '#00AAFF';
-			} else {
-				boxSquare.style.backgroundColor = 'gray';
-			}
-			
-			let boxLegend = HighElements[i].querySelector('.box-legend')
-			boxLegend.style.fontSize = '12px';
-			boxLegend.style.marginLeft = '2px';
-		}
-	</script>
+  <!-- Bootstrap JS (opcional) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
-
 </html>
